@@ -1,0 +1,7 @@
+server:
+  port: 80
+spring:
+  datasource:
+    url: jdbc:postgresql://db:5432/products_db
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
