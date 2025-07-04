@@ -118,9 +118,14 @@
         <dependency>
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-            <version>2.3.0</version>
+            <version>2.5.0</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.webjars.npm</groupId>
+            <artifactId>swagger-ui-dist</artifactId>
+            <version>5.13.0</version> <!-- Usa misma versión que springdoc -->
+        </dependency>
 
     </dependencies>
 

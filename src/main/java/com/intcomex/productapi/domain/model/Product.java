@@ -3,6 +3,8 @@ package com.intcomex.productapi.domain.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.math.BigDecimal;
+
 @Entity
 @Table(name = "products")
 @Getter
@@ -32,7 +34,7 @@ public class Product {
     private String quantityPerUnit;
 
     @Column(precision = 10, scale = 2)
-    private Double unitPrice;
+    private BigDecimal unitPrice;
 
     private Integer unitsInStock;
     private Integer unitsOnOrder;

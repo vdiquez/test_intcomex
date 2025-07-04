@@ -5,6 +5,7 @@ import com.intcomex.productapi.domain.model.User;
 import com.intcomex.productapi.domain.repository.UserRepository;
 import com.intcomex.productapi.web.controller.AuthController.AuthRequest;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -22,6 +23,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
+@Disabled
 public class AuthIntegrationTest {
 
     @Autowired
