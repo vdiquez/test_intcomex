@@ -42,7 +42,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 || path.equals("/favicon.ico")
                 || path.equals("/auth/login")
                 || path.endsWith(".css")
-                || path.endsWith(".js")) {
+                || path.endsWith(".js")
+                || path.endsWith("/h2-console/**")
+                || path.endsWith("*.jsp")) {
 
             filterChain.doFilter(request, response);
             return;

@@ -30,6 +30,7 @@ public class SecurityConfig {
         System.out.println("Configurando seguridad: permitir acceso a Swagger sin token");
         return http
                 .csrf(AbstractHttpConfigurer::disable)
+                .headers(headers -> headers.frameOptions().disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
                                 "/",                       // importante
@@ -42,6 +43,7 @@ public class SecurityConfig {
                                 "/v3/api-docs/**",
                                 "/swagger-resources/**",
                                 "/webjars/**",
+                                "/h2-console/**",
                                 "/auth/login"
                         ).permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/**").permitAll()
@@ -58,6 +60,7 @@ public class SecurityConfig {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setUserDetailsService(userDetailsService);
         provider.setPasswordEncoder(passwordEncoder());
+        System.out.println("PROBAMOS: " + passwordEncoder().encode("admin"));
         return provider;
     }
 
