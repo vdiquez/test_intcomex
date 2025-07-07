@@ -6,6 +6,7 @@ import com.intcomex.productapi.web.dto.SupplierResponseDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,6 +16,7 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/suppliers")
 @RequiredArgsConstructor
 @Tag(name = "SupplierController")
+@ConditionalOnProperty(name = "endpoints.supplier.enabled", havingValue = "true")
 public class SupplierController {
 
     private final SupplierService supplierService;
