@@ -58,7 +58,7 @@ public class ProductService {
     }
 
     public void triggerAsyncGeneration(int quantity) {
-        self.generateAndSaveProducts(quantity); // pasa por el proxy
+        self.generateAndSaveProducts(quantity);
     }
 
     @Async

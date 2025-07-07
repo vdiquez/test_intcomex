@@ -33,9 +33,9 @@ public class SecurityConfig {
                 .headers(headers -> headers.frameOptions().disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
-                                "/",                       // importante
-                                "/index.html",             // importante
-                                "/error",                  // necesario para evitar fallback
+                                "/",
+                                "/index.html",
+                                "/error",
                                 "/favicon.ico",
                                 "/swagger-ui/**",
                                 "/swagger-ui.html",

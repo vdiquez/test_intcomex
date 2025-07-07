@@ -26,7 +26,6 @@ public class Category {
     @Lob
     private byte[] picture;
 
-    // Relación uno a muchos con productos
     @OneToMany(mappedBy = "category")
     private List<Product> products;
 }

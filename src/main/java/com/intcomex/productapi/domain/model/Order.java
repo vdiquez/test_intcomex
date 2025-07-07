@@ -18,7 +18,6 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long orderId;
 
-    // Relaciones
     @ManyToOne
     @JoinColumn(name = "customer_id")
     private Customer customer;

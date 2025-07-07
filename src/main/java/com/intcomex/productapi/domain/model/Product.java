@@ -21,7 +21,6 @@ public class Product {
     @Column(nullable = false)
     private String productName;
 
-    // Relaciones
     @ManyToOne
     @JoinColumn(name = "supplier_id", nullable = false)
     private Supplier supplier;
@@ -30,7 +29,6 @@ public class Product {
     @JoinColumn(name = "category_id", nullable = false)
     private Category category;
 
-    // Detalles de producto
     private String quantityPerUnit;
 
     @Column(precision = 10, scale = 2)
