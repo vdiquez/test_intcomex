@@ -1,12 +1,13 @@
-DROP TABLE IF EXISTS users;
-DROP TABLE IF EXISTS categories;
-DROP TABLE IF EXISTS products;
 DROP TABLE IF EXISTS order_details;
 DROP TABLE IF EXISTS orders;
+DROP TABLE IF EXISTS products;
+DROP TABLE IF EXISTS suppliers;
+DROP TABLE IF EXISTS categories;
 DROP TABLE IF EXISTS shippers;
 DROP TABLE IF EXISTS employees;
 DROP TABLE IF EXISTS customers;
-DROP TABLE IF EXISTS suppliers;
+DROP TABLE IF EXISTS user_roles;
+DROP TABLE IF EXISTS users;
 
 
 CREATE TABLE users (
@@ -90,6 +91,24 @@ INSERT INTO products (
 ('Noise Cancelling Headphones', 1, 1, '1 unit', 120.00, 25, 10, 5, TRUE);
 
 
-
+-- Usuarios
 INSERT INTO users (id, username, password) VALUES
-(1, 'admin', '$2a$10$dcEUs86lWnajTDzdZPha0.Fj13nYgG852GYTPSbGa6P64sfHV82OS');
+  (1, 'admin', '$2a$10$SbSLLKyXjGIoJEP5MBdCHO2sb/3/G.Pq/bx70IwyAxJ.MxwG8Z0Kq'); -- admin
+
+-- Roles asociados
+INSERT INTO user_roles (user_id, role) VALUES
+  (1, 'ADMIN');
+  
+INSERT INTO categories (category_name, description, picture) VALUES
+  ('Servidores', 'Equipos y servicios relacionados con servidores', NULL),
+  ('Cloud', 'Servicios de computación en la nube', NULL);
+
+INSERT INTO suppliers (
+    company_name, contact_name, contact_title, address,
+    city, region, postal_code, country,
+    phone, fax, homepage
+) VALUES
+  ('Amazon Web Services', 'Jeff Bezos', 'CEO', '410 Terry Ave', 'Seattle', 'WA', '98109', 'USA', '+1-800-123-4567', NULL, 'https://aws.amazon.com'),
+  ('Google Cloud Platform', 'Sundar Pichai', 'CEO', '1600 Amphitheatre Pkwy', 'Mountain View', 'CA', '94043', 'USA', '+1-800-555-0199', NULL, 'https://cloud.google.com'),
+  ('Microsoft Azure', 'Satya Nadella', 'CEO', 'One Microsoft Way', 'Redmond', 'WA', '98052', 'USA', '+1-800-642-7676', NULL, 'https://azure.microsoft.com'),
+  ('Render', 'Anurag Goel', 'Founder', 'Render HQ', 'San Francisco', 'CA', '94103', 'USA', '+1-800-RENDER-01', NULL, 'https://render.com');

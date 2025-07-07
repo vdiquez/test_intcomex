@@ -8,6 +8,7 @@ import com.intcomex.productapi.web.mapper.ProductMapper;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -44,8 +45,9 @@ public class ProductController {
 
     @Operation(summary = "post create products")
     @PostMapping("/product")
+    @ResponseStatus(HttpStatus.ACCEPTED)
     public ResponseEntity<Void> create(@RequestParam("quantity") int quantity) {
-        productService.generateAndSaveProducts(quantity);
+        productService.triggerAsyncGeneration(quantity);
         return ResponseEntity.accepted().build();
     }
 }
