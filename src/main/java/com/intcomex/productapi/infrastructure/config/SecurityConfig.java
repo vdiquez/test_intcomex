@@ -60,7 +60,7 @@ public class SecurityConfig {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setUserDetailsService(userDetailsService);
         provider.setPasswordEncoder(passwordEncoder());
-        System.out.println("PROBAMOS: " + passwordEncoder().encode("admin"));
+        System.out.println(passwordEncoder().encode("admin"));
         return provider;
     }
 
