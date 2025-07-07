@@ -1,9 +1,8 @@
 package com.intcomex.productapi.web.controller;
 
-import com.intcomex.productapi.domain.repository.SupplierRepository;
+import com.intcomex.productapi.application.service.SupplierService;
 import com.intcomex.productapi.web.dto.SupplierRequestDto;
 import com.intcomex.productapi.web.dto.SupplierResponseDto;
-import com.intcomex.productapi.web.mapper.SupplierMapper;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -18,21 +17,17 @@ import java.util.stream.Collectors;
 @Tag(name = "SupplierController")
 public class SupplierController {
 
-    private final SupplierRepository repository;
-    private final SupplierMapper mapper;
+    private final SupplierService supplierService;
 
-    @Operation(summary = "get all supliers")
+    @Operation(summary = "Get all suppliers")
     @GetMapping
     public List<SupplierResponseDto> getAll() {
-        return repository.findAll()
-                .stream()
-                .map(mapper::toDto)
-                .collect(Collectors.toList());
+        return supplierService.findAll();
     }
 
-    @Operation(summary = "post create suplier")
+    @Operation(summary = "Post create supplier")
     @PostMapping
     public SupplierResponseDto create(@RequestBody SupplierRequestDto dto) {
-        return mapper.toDto(repository.save(mapper.toEntity(dto)));
+        return supplierService.save(dto);
     }
 }
