@@ -93,7 +93,7 @@ INSERT INTO products (
 
 -- Usuarios
 INSERT INTO users (id, username, password) VALUES
-  (1, 'admin', '$2a$10$SbSLLKyXjGIoJEP5MBdCHO2sb/3/G.Pq/bx70IwyAxJ.MxwG8Z0Kq'); -- admin
+  (1, 'admin', '$2a$10$bvrq4RfPb9C9jwE7hIiXOeKp09ovgym69XAADagj419xUZ0T90z0S'); -- admin
 
 -- Roles asociados
 INSERT INTO user_roles (user_id, role) VALUES
