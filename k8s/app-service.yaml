@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: product-api-service
+  labels:
+    app: product-api
+spec:
+  type: LoadBalancer
+  selector:
+    app: product-api
+  ports:
+    - port: 80
+      targetPort: 8081
+      protocol: TCP
+      name: http

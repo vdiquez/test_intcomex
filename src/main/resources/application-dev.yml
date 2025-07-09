@@ -12,6 +12,10 @@ spring:
       path: /h2-console
 jwt:
   secret: miClaveSecretaParaJwt12345678901
+security:
+  admin-user: admin
+  admin-password: admin123
+  admin-role: ADMIN
 logging:
   level:
     org.springframework.security: DEBUG
