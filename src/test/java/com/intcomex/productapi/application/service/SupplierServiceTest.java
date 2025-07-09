@@ -1,6 +1,5 @@
-package com.intcomex.productapi;
+package com.intcomex.productapi.application.service;
 
-import com.intcomex.productapi.application.service.SupplierService;
 import com.intcomex.productapi.domain.model.Supplier;
 import com.intcomex.productapi.domain.repository.SupplierRepository;
 import com.intcomex.productapi.web.dto.SupplierRequestDto;

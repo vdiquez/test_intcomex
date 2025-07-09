@@ -17,16 +17,13 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.context.annotation.Profile;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.domain.*;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
 import java.util.List;
-import java.util.Random;
-import java.util.UUID;
-import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.IntStream;
 
 @Service
@@ -78,22 +75,6 @@ public class ProductService {
             entityManager.flush();
             entityManager.clear();
         }
-    }
-
-    private Product createRandomProduct(List<Category> categories, List<Supplier> suppliers) {
-        Random random = ThreadLocalRandom.current();
-
-        Category randomCategory = categories.get(random.nextInt(categories.size()));
-        Supplier randomSupplier = suppliers.get(random.nextInt(suppliers.size()));
-
-        return Product.builder()
-                .productName("Producto " + UUID.randomUUID().toString().substring(0, 8))
-                .unitPrice(BigDecimal.valueOf(random.nextDouble(10, 500)))
-                .unitsInStock(random.nextInt(1, 100))
-                .discontinued(false)
-                .category(randomCategory)
-                .supplier(randomSupplier)
-                .build();
     }
 
     public PagedResponseDto<ProductResponseDto> searchProducts(ProductSearchRequestDto request) {

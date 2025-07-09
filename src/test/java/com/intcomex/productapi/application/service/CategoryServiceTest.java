@@ -1,12 +1,10 @@
-package com.intcomex.productapi;
+package com.intcomex.productapi.application.service;
 
-import com.intcomex.productapi.application.service.CategoryService;
 import com.intcomex.productapi.domain.model.Category;
 import com.intcomex.productapi.domain.repository.CategoryRepository;
 import com.intcomex.productapi.web.dto.CategoryRequestDto;
 import com.intcomex.productapi.web.dto.CategoryResponseDto;
 import com.intcomex.productapi.web.mapper.CategoryMapper;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

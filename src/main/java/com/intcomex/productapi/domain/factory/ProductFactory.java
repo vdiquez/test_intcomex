@@ -19,6 +19,13 @@ public class ProductFactory {
     private final Random random = ThreadLocalRandom.current();
 
     public Product create(List<Category> categories, List<Supplier> suppliers) {
+        if (categories == null || categories.isEmpty()) {
+            throw new IllegalArgumentException("La lista de categorías no puede estar vacía.");
+        }
+        if (suppliers == null || suppliers.isEmpty()) {
+            throw new IllegalArgumentException("La lista de proveedores no puede estar vacía.");
+        }
+
         Category randomCategory = categories.get(random.nextInt(categories.size()));
         Supplier randomSupplier = suppliers.get(random.nextInt(suppliers.size()));
 

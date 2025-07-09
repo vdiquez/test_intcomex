@@ -35,12 +35,4 @@ public class CategoryService {
 
         return mapper.toDto(repository.save(entity));
     }
-
-    private byte[] extractBytes(MultipartFile file) {
-        try {
-            return file != null && !file.isEmpty() ? file.getBytes() : null;
-        } catch (Exception e) {
-            throw new RuntimeException("Error leyendo la imagen", e);
-        }
-    }
 }
