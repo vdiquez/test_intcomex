@@ -2,12 +2,13 @@ package com.intcomex.productapi.web.controller;
 
 import com.intcomex.productapi.application.service.ProductService;
 import com.intcomex.productapi.domain.repository.ProductRepository;
-import com.intcomex.productapi.web.dto.ProductRequestDto;
-import com.intcomex.productapi.web.dto.ProductResponseDto;
+import com.intcomex.productapi.web.dto.*;
 import com.intcomex.productapi.web.mapper.ProductMapper;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,21 +28,21 @@ public class ProductController {
 
     @Operation(summary = "get all products")
     @GetMapping("/products")
-    public List<ProductResponseDto> getAll() {
-        return repository.findAll()
-                .stream()
-                .map(mapper::toDto)
-                .collect(Collectors.toList());
+    public ResponseEntity<PagedResponseDto<ProductResponseDto>> searchProducts(
+            @ParameterObject @ModelAttribute ProductSearchRequestDto request
+    ) {
+        var response = productService.searchProducts(request);
+        return ResponseEntity.ok(response);
     }
 
-    @Operation(summary = "get product detail")
+    @Operation(summary = "Obtener el detalle de un producto por su ID")
     @GetMapping("/products/{id}")
-    public List<ProductResponseDto> getDetail() {
-        return repository.findAll()
-                .stream()
-                .map(mapper::toDto)
-                .collect(Collectors.toList());
+    public ResponseEntity<ProductDetailResponseDto> getProductDetail(
+            @Parameter(description = "ID del producto") @PathVariable("id") Long id) {
+        ProductDetailResponseDto detail = productService.getProductDetail(id);
+        return ResponseEntity.ok(detail);
     }
+
 
     @Operation(summary = "post create products")
     @PostMapping("/product")

@@ -7,15 +7,18 @@ import com.intcomex.productapi.domain.model.Supplier;
 import com.intcomex.productapi.domain.repository.CategoryRepository;
 import com.intcomex.productapi.domain.repository.ProductRepository;
 import com.intcomex.productapi.domain.repository.SupplierRepository;
-import com.intcomex.productapi.web.dto.ProductRequestDto;
-import com.intcomex.productapi.web.dto.ProductResponseDto;
+import com.intcomex.productapi.infrastructure.specification.ProductSpecification;
+import com.intcomex.productapi.web.dto.*;
 import com.intcomex.productapi.web.mapper.ProductMapper;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.data.jpa.domain.Specification;
+import org.springframework.data.domain.*;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
@@ -24,7 +27,6 @@ import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 @Service
@@ -92,5 +94,38 @@ public class ProductService {
                 .category(randomCategory)
                 .supplier(randomSupplier)
                 .build();
+    }
+
+    public PagedResponseDto<ProductResponseDto> searchProducts(ProductSearchRequestDto request) {
+        Specification<Product> spec = ProductSpecification.build(request);
+
+        Pageable pageable = resolvePageable(request);
+        Page<Product> pageResult = productRepository.findAll(spec, pageable);
+
+        List<ProductResponseDto> dtos = pageResult.getContent()
+                .stream()
+                .map(mapper::toDto)
+                .toList();
+
+        return PagedResponseDto.<ProductResponseDto>builder()
+                .content(dtos)
+                .page(pageResult.getNumber())
+                .size(pageResult.getSize())
+                .totalElements(pageResult.getTotalElements())
+                .totalPages(pageResult.getTotalPages())
+                .build();
+    }
+
+    public ProductDetailResponseDto getProductDetail(Long productId) {
+        Product product = productRepository.findById(productId)
+                .orElseThrow(() -> new EntityNotFoundException("Producto no encontrado con ID: " + productId));
+
+        return mapper.toDetailDto(product);
+    }
+
+    private Pageable resolvePageable(ProductSearchRequestDto request) {
+        int page = request.getPage() != null ? request.getPage() : 0;
+        int size = request.getSize() != null ? request.getSize() : 10;
+        return PageRequest.of(page, size, Sort.by("productName").ascending());
     }
 }
