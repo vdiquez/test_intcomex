@@ -130,3 +130,13 @@ CREATE TABLE order_details (
     FOREIGN KEY (order_id) REFERENCES orders(order_id),
     FOREIGN KEY (product_id) REFERENCES products(product_id)
 );
+
+INSERT INTO suppliers (
+    company_name, contact_name, contact_title, address,
+    city, region, postal_code, country,
+    phone, fax, homepage
+) VALUES
+  ('Amazon Web Services', 'Jeff Bezos', 'CEO', '410 Terry Ave', 'Seattle', 'WA', '98109', 'USA', '+1-800-123-4567', NULL, 'https://aws.amazon.com'),
+  ('Google Cloud Platform', 'Sundar Pichai', 'CEO', '1600 Amphitheatre Pkwy', 'Mountain View', 'CA', '94043', 'USA', '+1-800-555-0199', NULL, 'https://cloud.google.com'),
+  ('Microsoft Azure', 'Satya Nadella', 'CEO', 'One Microsoft Way', 'Redmond', 'WA', '98052', 'USA', '+1-800-642-7676', NULL, 'https://azure.microsoft.com'),
+  ('Render', 'Anurag Goel', 'Founder', 'Render HQ', 'San Francisco', 'CA', '94103', 'USA', '+1-800-RENDER-01', NULL, 'https://render.com');

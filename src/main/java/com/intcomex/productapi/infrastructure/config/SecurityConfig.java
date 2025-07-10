@@ -47,7 +47,6 @@ public class SecurityConfig {
                                 "/h2-console/**",
                                 "/auth/login"
                         ).permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(sess
