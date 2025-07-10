@@ -116,7 +116,7 @@ docker-compose --env-file .env.qa up --build
 #### 4. Base de datos y datos de prueba
 
 - Motor: PostgreSQL
-- Script: `resources/data-dev.sql`
+- Script: `resources/data-qa.sql`
 
 Las tablas se deben crear a partir del query ubicado dentro del archivo .sql
 
