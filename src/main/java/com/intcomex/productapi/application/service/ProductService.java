@@ -33,7 +33,7 @@ public class ProductService {
     private static final int BATCH_SIZE = 1000;
 
     private final ProductRepository productRepository;
-    private final ProductMapper mapper;
+    private final ProductMapper productMapper;
     private final SupplierRepository supplierRepository;
     private final CategoryRepository categoryRepository;
     private final ProductFactory productFactory;
@@ -47,13 +47,13 @@ public class ProductService {
 
     public List<ProductResponseDto> findAll() {
         return productRepository.findAll().stream()
-                .map(mapper::toDto)
+                .map(productMapper::toDto)
                 .toList();
     }
 
     public ProductResponseDto save(ProductRequestDto dto) {
-        Product entity = mapper.toEntity(dto);
-        return mapper.toDto(productRepository.save(entity));
+        Product entity = productMapper.toEntity(dto);
+        return productMapper.toDto(productRepository.save(entity));
     }
 
     public void triggerAsyncGeneration(int quantity) {
@@ -85,7 +85,7 @@ public class ProductService {
 
         List<ProductResponseDto> dtos = pageResult.getContent()
                 .stream()
-                .map(mapper::toDto)
+                .map(productMapper::toDto)
                 .toList();
 
         return PagedResponseDto.<ProductResponseDto>builder()
@@ -101,7 +101,7 @@ public class ProductService {
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new EntityNotFoundException("Producto no encontrado con ID: " + productId));
 
-        return mapper.toDetailDto(product);
+        return productMapper.toDetailDto(product);
     }
 
     private Pageable resolvePageable(ProductSearchRequestDto request) {

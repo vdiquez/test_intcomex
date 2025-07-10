@@ -24,6 +24,7 @@ public class Category {
     private String description;
 
     @Lob
+    @Column(name = "picture")
     private byte[] picture;
 
     @OneToMany(mappedBy = "category")

@@ -7,24 +7,21 @@ import com.intcomex.productapi.domain.repository.CategoryRepository;
 import com.intcomex.productapi.domain.repository.ProductRepository;
 import com.intcomex.productapi.domain.repository.SupplierRepository;
 import com.intcomex.productapi.domain.factory.ProductFactory;
+import com.intcomex.productapi.web.dto.CategoryRequestDto;
+import com.intcomex.productapi.web.mapper.CategoryMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.DynamicPropertyRegistry;
-import org.springframework.test.context.DynamicPropertySource;
-import org.testcontainers.containers.PostgreSQLContainer;
-import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 import jakarta.persistence.EntityManager;
-import jakarta.transaction.Transactional;
 import org.testcontainers.shaded.org.awaitility.Awaitility;
 
-import java.util.List;
+import javax.sql.DataSource;
+import java.nio.charset.StandardCharsets;
 import java.util.concurrent.TimeUnit;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @Testcontainers
 @SpringBootTest
@@ -41,6 +38,9 @@ public class ProductServiceIntegrationTest {
     private CategoryRepository categoryRepository;
 
     @Autowired
+    private CategoryMapper categoryMapper;
+
+    @Autowired
     private SupplierRepository supplierRepository;
 
     @Autowired
@@ -49,18 +49,32 @@ public class ProductServiceIntegrationTest {
     @Autowired
     private ProductFactory productFactory;
 
+    @Autowired
+    private DataSource dataSource;
+
     @Test
     void generateAndSaveProducts_shouldPersistAllProducts() {
         // Arrange: preparamos categorías y proveedores
-        Category category = Category.builder()
+
+        CategoryRequestDto dto = CategoryRequestDto.builder()
                 .categoryName("Electrónica")
                 .description("Tecnología y gadgets")
-                .picture(null)
+                .picture(new MockMultipartFile(
+                        "file",
+                        "imagen.png",
+                        "image/png",
+                        "Imagen binaria simulada".getBytes(StandardCharsets.UTF_8)
+                ))
                 .build();
+
+        Category category = categoryMapper.toEntity(dto);
+
         Supplier supplier = Supplier.builder()
                 .companyName("TechSupplier")
                 .contactName("John Doe")
                 .build();
+
+        System.out.println("Picture class: " + category.getPicture().getClass());
 
         categoryRepository.save(category);
         supplierRepository.save(supplier);
@@ -74,4 +88,5 @@ public class ProductServiceIntegrationTest {
         Awaitility.await().atMost(5, TimeUnit.SECONDS)
                 .until(() -> productRepository.findAll().size() == quantity);
     }
+
 }
