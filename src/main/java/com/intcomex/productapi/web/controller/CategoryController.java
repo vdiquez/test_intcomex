@@ -8,6 +8,7 @@ import com.intcomex.productapi.web.mapper.CategoryMapper;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -29,18 +30,8 @@ public class CategoryController {
     }
 
     @Operation(summary = "Post create category")
-    @PostMapping(consumes = "multipart/form-data")
-    public CategoryResponseDto create(
-            @RequestPart("categoryName") String categoryName,
-            @RequestPart("description") String description,
-            @RequestPart("picture") MultipartFile picture
-    ) {
-        CategoryRequestDto dto = CategoryRequestDto.builder()
-                .categoryName(categoryName)
-                .description(description)
-                .picture(picture)
-                .build();
-
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public CategoryResponseDto create(@ModelAttribute CategoryRequestDto dto) {
         return categoryService.save(dto);
     }
 }
