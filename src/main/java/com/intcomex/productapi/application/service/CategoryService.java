@@ -27,11 +27,8 @@ public class CategoryService {
     }
 
     public CategoryResponseDto save(CategoryRequestDto dto) {
-        Category entity = Category.builder()
-                .categoryName(dto.getCategoryName())
-                .description(dto.getDescription())
-                .picture(ImageUtils.toByteArray(dto.getPicture()))
-                .build();
+        System.out.println("Tipo de picture: " + dto.getPicture().getClass().getName());
+        Category entity = mapper.toEntity(dto);
 
         return mapper.toDto(repository.save(entity));
     }
