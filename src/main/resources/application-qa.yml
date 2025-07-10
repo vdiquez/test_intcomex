@@ -15,7 +15,7 @@ jwt:
 security:
   admin-user: admin
   admin-password: admin
-  admin-role: rawAdminRole
+  admin-role: ADMIN
 logging:
   level:
     org.springframework.security: DEBUG

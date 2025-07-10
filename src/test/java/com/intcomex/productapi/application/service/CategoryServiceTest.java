@@ -10,6 +10,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.mock.web.MockMultipartFile;
 
 import java.util.List;
 
@@ -46,14 +47,23 @@ public class CategoryServiceTest {
     @Test
     public void testSave() {
         // Arrange
+        MockMultipartFile picture = new MockMultipartFile(
+                "picture",
+                "test-image.png",
+                "image/png",
+                "Fake Image Content".getBytes()
+        );
+
         CategoryRequestDto dto = CategoryRequestDto.builder()
                 .categoryName("Cloud")
                 .description("Servicios en la nube")
+                .picture(picture)
                 .build();
 
         Category categoryMapped = Category.builder()
                 .categoryName("Cloud")
                 .description("Servicios en la nube")
+                .picture("Fake Image Content".getBytes())
                 .build();
 
         CategoryResponseDto expectedResponse = CategoryResponseDto.builder()
@@ -61,6 +71,8 @@ public class CategoryServiceTest {
                 .description("Servicios en la nube")
                 .build();
 
+
+        when(mapper.toEntity(any(CategoryRequestDto.class))).thenReturn(categoryMapped);
         when(repository.save(any(Category.class))).thenReturn(categoryMapped);
         when(mapper.toDto(categoryMapped)).thenReturn(expectedResponse);
 
@@ -70,6 +82,7 @@ public class CategoryServiceTest {
         // Assert
         assertNotNull(result);
         assertEquals("Cloud", result.getCategoryName());
+        assertArrayEquals("Fake Image Content".getBytes(), categoryMapped.getPicture());
         verify(repository).save(any(Category.class));
     }
 
