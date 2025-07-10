@@ -6,7 +6,4 @@ RUN mvn clean package -DskipTests
 FROM eclipse-temurin:21-jdk-alpine
 VOLUME /tmp
 COPY --from=build /app/target/*.jar app.jar
-
-ENTRYPOINT ["sh", "-c", "java -Dspring.profiles.active=${SPRING_PROFILES_ACTIVE} -jar /app.jar"]
-
-EXPOSE 8080
+ENTRYPOINT ["java","-Dspring.profiles.active=${SPRING_PROFILES_ACTIVE}","-jar","/app.jar"]

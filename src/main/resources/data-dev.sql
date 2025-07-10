@@ -91,14 +91,6 @@ INSERT INTO products (
 ('Noise Cancelling Headphones', 1, 1, '1 unit', 120.00, 25, 10, 5, TRUE);
 
 
--- Usuarios
-INSERT INTO users (id, username, password) VALUES
-  (1, 'admin', '$2a$10$bvrq4RfPb9C9jwE7hIiXOeKp09ovgym69XAADagj419xUZ0T90z0S'); -- admin
-
--- Roles asociados
-INSERT INTO user_roles (user_id, role) VALUES
-  (1, 'ADMIN');
-  
 INSERT INTO categories (category_name, description, picture) VALUES
   ('Servidores', 'Equipos y servicios relacionados con servidores', NULL),
   ('Cloud', 'Servicios de computación en la nube', NULL);
