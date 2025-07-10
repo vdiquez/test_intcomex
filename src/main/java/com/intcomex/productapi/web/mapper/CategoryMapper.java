@@ -9,7 +9,9 @@ import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring", imports = {ImageUtils.class})
 public interface CategoryMapper {
-    @Mapping(target = "picture", expression = "java(ImageUtils.toByteArray(dto.getPicture()))")
+    @Mapping(target = "picture",
+            expression = "java(dto.getPicture() != null && !dto.getPicture().isEmpty()" +
+                    " ? ImageUtils.toByteArray(dto.getPicture()) : null)")
     Category toEntity(CategoryRequestDto dto);
     CategoryResponseDto toDto(Category entity);
 }
